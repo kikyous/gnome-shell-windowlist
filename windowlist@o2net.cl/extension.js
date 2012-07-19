@@ -834,14 +834,14 @@ function init() {
 
 function enable() {
     /* Move Clock - http://www.fpmurphy.com/gnome-shell-extensions/moveclock.tar.gz */
-//    let _children = Main.panel._rightBox.get_children();
-//    let _clock    = Main.panel._dateMenu;
-//    restoreState["_dateMenu"] = _clock.actor.get_parent();
-//    restoreState["_dateMenu"].remove_actor(_clock.actor);
+    let _children = Main.panel._rightBox.get_children();
+    let _clock    = Main.panel._dateMenu;
+    restoreState["_dateMenu"] = _clock.actor.get_parent();
+    restoreState["_dateMenu"].remove_actor(_clock.actor);
     // Add a wrapper around the clock so it won't get squished (ellipsized)
     // and so that it doesn't resize when the time chagnes
-//    clockWrapper = new StableLabel(_clock);
-//    Main.panel._rightBox.insert_actor(clockWrapper.actor, _children.length - 1);
+    clockWrapper = new StableLabel(_clock);
+    Main.panel._rightBox.insert_child_at_index(clockWrapper.actor, _children.length - 1);
 
     /* Remove Application Menu */
     restoreState["applicationMenu"] = Main.panel._appMenu.actor;
@@ -862,13 +862,13 @@ function disable() {
     Main.panel._leftBox.add(restoreState["applicationMenu"]);
 
     /* unmove the clock */
-//    let _clock = Main.panel._dateMenu;
-//    let _clock_parent = _clock.actor.get_parent();
-//    if (_clock_parent) {
-//        _clock_parent.remove_actor(_clock.actor);
-//    }
-//    if (restoreState["_dateMenu"]) {
-//        restoreState["_dateMenu"].add(_clock.actor, 0);
-//        clockWrapper.destroy();
-//    }
+    let _clock = Main.panel._dateMenu;
+    let _clock_parent = _clock.actor.get_parent();
+    if (_clock_parent) {
+        _clock_parent.remove_actor(_clock.actor);
+    }
+    if (restoreState["_dateMenu"]) {
+        restoreState["_dateMenu"].add(_clock.actor, 0);
+        clockWrapper.destroy();
+    }
 }
